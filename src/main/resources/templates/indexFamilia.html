@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Familias</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{css/sb-admin.css}"/>
+
+    <!-- Page level plugin CSS-->
+    <link th:href="@{css/dataTables.bootstrap4.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Sistema de Alquileres</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/admin">Dashboard <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/indexUser">Clientes</a>
+            <a class="nav-item nav-link" href="/indexEquipos">Equipos</a>
+            <a class="nav-item nav-link" href="/indexFamilia">Familias</a>
+            <a class="nav-item nav-link" href="/indexAlquiler">Alquileres</a>
+            <a class="nav-item nav-link" href="/indexEntrega">Entregas</a>
+            <a class="nav-item nav-link" href="/historial">Historial</a>
+        </div>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a id="es"><button>ESP</button></a>
+            </li>
+            <li class="nav-item">
+                <a id="en"><button>ENG</button></a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <!-- Navbar -->
+
+</nav>
+
+<div id="wrapper">
+    <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+            <div class="btn">
+                <a class="btn btn-outline-primary" href="/crearFamilia">Nueva Familia</a>
+            </div>
+            <table class="table">
+                <tr>
+                    <th th:text="#{nombre}">Nombre</th>
+                    <th th:text="#{descripcion}">Descripcion</th>
+                    <th th:text="#{famMa}">Familia Mayor</th>
+                </tr>
+                <th:block th:each="familia : ${familias}">
+
+                    <tr>
+                        <td th:text="${familia.nombre}">...</td>
+                        <td th:text="${familia.descripcion}">...</td>
+                        <td th:if="${familia.hijo == null}">N/A</td>
+                        <td th:if="${familia.hijo != null && familia.hijo.nombre != null}" th:text="${familia.hijo.nombre}">No tiene</td>
+                    </tr>
+                </th:block>
+            </table>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /.content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap.bundle.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{js/jquery.easing.min.js}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#es").click(function () {
+            var selectedOption = $(this).attr('id');
+            window.location.replace('indexFamilia?lang=' + selectedOption);
+
+        });
+        $("#en").click(function () {
+            var selectedOption = $(this).attr('id');
+            window.location.replace('indexFamilia?lang=' + selectedOption);
+
+        });
+    });
+</script>
+
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{js/sb-admin.min.js}"></script>
+
+</body>
+
+</html>
